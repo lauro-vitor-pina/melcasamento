@@ -1,85 +1,83 @@
-<!-- Sidebar Mobile (Offcanvas) -->
+<!-- Sidebar Mobile -->
+<?php
+
+
+$host = $_SERVER['SERVER_NAME'] ?? throw new Exception('Cannot determine server environment');
+
+
+$local_environments = [
+    'localhost',
+    '127.0.01'
+];
+
+
+$prefixo = '';
+
+if (in_array($host, $local_environments)) {
+   $prefixo = '/melcasamento';
+}
+
+define('URL_ADMIN', $prefixo. '/admin/');
+define('URL_CONVIDADO_LISTAR', $prefixo . '/admin/convidados/listar/listar-convidados.html.php');
+
+?>
 <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMobile">
     <div class="offcanvas-header border-bottom">
-        <h5 class="offcanvas-title text-white">
-            <i class="bi bi-heart-fill me-2"></i>
-            Menu
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        <div>
+            <h5 class="offcanvas-title text-white mb-1">
+                <i class="bi bi-heart-fill me-2"></i>
+                Menu
+            </h5>
+            <small class="text-white-50"><?php echo date('d/m H:i'); ?></small>
+        </div>
+        <button type="button" class="btn-close btn-close-white touch-feedback" data-bs-dismiss="offcanvas"></button>
     </div>
-    
+
     <div class="offcanvas-body p-0">
-        <!-- Menu de Navegação Mobile -->
-        <ul class="nav flex-column">
+        <!-- Menu Principal -->
+        <ul class="nav flex-column mt-3">
             <li class="nav-item">
-                <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>" href="../index.php">
+                <a  href="<?php echo URL_ADMIN; ?>"
+                    class="nav-link touch-feedback <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
                     <i class="bi bi-house-door"></i>
-                    Dashboard
+                    Início
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'convidados') !== false ? 'active' : ''; ?>" href="convidados/">
+                <a  href="<?php echo URL_CONVIDADO_LISTAR; ?>"
+                    class="nav-link touch-feedback <?php echo strpos($_SERVER['REQUEST_URI'], 'convidados') !== false ? 'active' : ''; ?>" >
                     <i class="bi bi-people"></i>
                     Convidados
+                    <span class="badge bg-primary float-end mt-1">150</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'presentes') !== false ? 'active' : ''; ?>" href="presentes/">
+                <a class="nav-link touch-feedback <?php echo strpos($_SERVER['REQUEST_URI'], 'presentes') !== false ? 'active' : ''; ?>" href="presentes/">
                     <i class="bi bi-gift"></i>
                     Presentes
+                    <span class="badge bg-warning float-end mt-1">45</span>
                 </a>
             </li>
         </ul>
-    </div>
-</div>
 
-<!-- Sidebar Desktop -->
-<div class="sidebar-desktop" style="display: none;">
-    <div class="position-sticky pt-4">
-        <!-- Logo Desktop -->
-        <div class="text-center mb-5 px-3">
-            <h4 class="text-white mb-2">
-                <i class="bi bi-heart-fill me-2"></i>
-                Sistema
-            </h4>
-            <small class="text-white-50">Painel Administrativo</small>
+        <!-- Status Rápido -->
+        <div class="mt-4 p-3 mx-3 bg-dark bg-opacity-25 rounded">
+            <small class="text-white-50 d-block">Status Rápido</small>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="d-flex align-items-center">
+                    <div class="bg-success rounded-circle me-2" style="width: 8px; height: 8px;"></div>
+                    <small class="text-white">120 confirmados</small>
+                </div>
+                <small class="text-white-50">80%</small>
+            </div>
         </div>
 
-        <!-- Menu Desktop -->
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>" href="../index.php">
-                    <i class="bi bi-house-door"></i>
-                    Dashboard
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'convidados') !== false ? 'active' : ''; ?>" href="convidados/">
-                    <i class="bi bi-people"></i>
-                    Convidados
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link <?php echo strpos($_SERVER['REQUEST_URI'], 'presentes') !== false ? 'active' : ''; ?>" href="presentes/">
-                    <i class="bi bi-gift"></i>
-                    Lista de Presentes
-                </a>
-            </li>
-            <li class="nav-item mt-4">
-                <a class="nav-link text-warning" href="../logout.php">
-                    <i class="bi bi-box-arrow-right"></i>
-                    Sair do Sistema
-                </a>
-            </li>
-        </ul>
-
-        <!-- Status do Sistema Desktop -->
-        <div class="mt-5 p-3 mx-3 bg-dark bg-opacity-25 rounded">
-            <small class="text-white-50 d-block">Status do Sistema</small>
-            <div class="d-flex align-items-center mt-2">
-                <div class="bg-success rounded-circle me-2" style="width: 8px; height: 8px;"></div>
-                <small class="text-white">Online</small>
-            </div>
+        <!-- Logout -->
+        <div class="mt-4 p-3">
+            <a href="../logout.php" class="btn btn-outline-warning btn-sm w-100 touch-feedback">
+                <i class="bi bi-box-arrow-right me-2"></i>
+                Sair do App
+            </a>
         </div>
     </div>
 </div>
