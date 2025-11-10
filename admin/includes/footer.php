@@ -76,7 +76,7 @@
                             if (this.loadingElement.classList.contains('show')) {
                                 this.hide();
                             }
-                        }, 5000);
+                        }, 3000);
                     });
 
                     // Interceptar mudanças em selects/inputs que disparam submit automático

@@ -78,7 +78,7 @@ function _convidado_repositorio_obter_todos_filtrar(
 
 function _convidado_repositorio_obter_todos_count($dbc, $tx_filtro)
 {
-    $query = "SELECT COUNT(codigo_convidado) as count FROM convidado c WHERE 1 = 1 $tx_filtro";
+    $query = "SELECT COUNT(codigo_convidado) as count FROM convidado c  WHERE c.dt_desativacao IS NULL $tx_filtro";
 
     $query_result = mysqli_query($dbc, $query);
 
@@ -117,7 +117,7 @@ function _convidado_repositorio_obter_todos_rows($dbc, $tx_filtro, $nu_page_numb
                     END
                  ) AS bl_visualizado
                 FROM convidado c
-                WHERE 1 = 1 $tx_filtro
+                WHERE dt_desativacao IS NULL $tx_filtro
                 ORDER BY c.dt_registro DESC
                 LIMIT $nu_page_size OFFSET $offset";
 

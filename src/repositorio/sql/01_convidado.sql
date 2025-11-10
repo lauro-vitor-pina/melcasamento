@@ -12,3 +12,9 @@ CREATE TABLE convidado(
     
     PRIMARY KEY(codigo_convidado)
 );
+
+ALTER TABLE convidado 
+ADD dt_desativacao DATETIME NULL; 
+
+ALTER TABLE convidado 
+ADD tx_usuario_desativacao VARCHAR(255) NULL;

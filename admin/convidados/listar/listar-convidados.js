@@ -125,8 +125,8 @@ function renderConvidadoCard(convidado) {
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <a class="dropdown-item text-danger touch-feedback" 
-                                   href="../excluir/excluir-convidados.html.php?cd=${convidado.codigo_convidado}">
-                                    <i class="bi bi-trash me-2"></i>Excluir
+                                   href="../desativar/desativar-convidados.html.php?cd=${convidado.codigo_convidado}">
+                                    <i class="bi bi-trash me-2"></i>Desativar
                                 </a>
                             </li>
                         </ul>
