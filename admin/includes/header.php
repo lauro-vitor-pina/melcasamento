@@ -354,7 +354,7 @@ $usuarioLogado = autorizacao_service_verificar_autenticacao();
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a href="logout.php" class="dropdown-item text-danger touch-feedback" href="#">
+                                <a href="/admin/logout.php" class="dropdown-item text-danger touch-feedback" href="#">
                                     <i class="bi bi-box-arrow-right me-2"></i>Sair</a>
                             </li>
                         </ul>

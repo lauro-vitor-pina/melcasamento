@@ -2,12 +2,15 @@
 // api/convidados/desativar.php
 require_once(__DIR__ . '/../../../src/repositorio/repositorio_conexao.php');
 require_once(__DIR__ . '/../../../src/repositorio/convidado/convidado_repositorio_desativar.php');
+require_once(__DIR__. '/../../../src/services/autorizacao/autorizacao_service.php');
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: PUT, POST');
 
 try {
+    $usuario_logado = autorizacao_service_obter_usuario_logado();
+
     // Ler dados do POST
     $input = json_decode(file_get_contents('php://input'), true);
     
@@ -25,7 +28,7 @@ try {
     $resultado = convidado_repositorio_desativar(
         $dbc,
         $input['codigo_convidado'],
-        'usuario.desativacao.teste'
+        $usuario_logado['nome']
     );
     
     repositorio_fechar_conexao($dbc);

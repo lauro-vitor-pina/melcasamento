@@ -2,12 +2,16 @@
 // api/convidados/inserir.php
 require_once(__DIR__ . '/../../../src/repositorio/repositorio_conexao.php');
 require_once(__DIR__ . '/../../../src/repositorio/convidado/convidado_repositorio_inserir.php');
+require_once(__DIR__. '/../../../src/services/autorizacao/autorizacao_service.php');
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 
 try {
+    
+    $usuario_logado = autorizacao_service_obter_usuario_logado();
+
     // Ler dados do POST
     $input = json_decode(file_get_contents('php://input'), true);
     
@@ -28,7 +32,7 @@ try {
     
     $resultado = convidado_repositorio_inserir(
         $dbc,
-        'usuario.registro.teste',
+        $usuario_logado['nome'],
         $input['tx_nome_convidado'],
         $input['tx_telefone_convidado'],
         $input['nu_qtd_pessoas'] ?? 1
