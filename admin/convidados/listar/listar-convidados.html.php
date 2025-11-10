@@ -3,7 +3,6 @@
 $page_title = 'Convidados';
 include '../../includes/header.php';
 include '../../includes/sidebar.php';
-require_once 'listar-convidados.component.php'
 ?>
 
 <main>
@@ -198,7 +197,7 @@ require_once 'listar-convidados.component.php'
                     <i class="bi bi-people display-1 text-muted mb-3"></i>
                     <h5 class="text-muted">Nenhum convidado encontrado</h5>
                     <p class="text-muted mb-4" id="mensagem-vazio"></p>
-                    <a href="../adicionar.php" class="btn btn-primary">
+                    <a href="../registrar/registrar-convidados.html.php" class="btn btn-primary">
                         <i class="bi bi-person-plus me-1"></i>
                         Adicionar Primeiro Convidado
                     </a>
