@@ -1,3 +1,9 @@
+<?php
+// No header.php
+require_once(__DIR__ . '../../../src/services/autorizacao/autorizacao_service.php');
+$usuarioLogado = autorizacao_service_verificar_autenticacao();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -6,7 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MEL - <?php if ($page_title != null) {
                         echo $page_title;
-                    } ?></title>
+                    } ?>
+    </title>
 
     <!-- Favicon Mobile -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23667eea'><path d='M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z'/></svg>">
@@ -300,8 +307,8 @@
 </head>
 
 <body>
-    
-  <!-- Loading Overlay Global -->
+
+    <!-- Loading Overlay Global -->
     <div id="globalLoading" class="loading-overlay">
         <div class="loading-spinner">
             <div class="spinner-border text-primary" role="status">
@@ -337,12 +344,19 @@
                             <i class="bi bi-person-circle"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item touch-feedback" href="#"><i class="bi bi-person me-2"></i>Meu Perfil</a></li>
-                            <li><a class="dropdown-item touch-feedback" href="#"><i class="bi bi-gear me-2"></i>Configurações</a></li>
+                            <li>
+                                <span class="dropdown-item-text">
+                                    <small class="text-muted">Usuário:</small><br>
+                                    <strong><?php echo htmlspecialchars($usuarioLogado['nome']); ?></strong>
+                                </span>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item text-danger touch-feedback" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sair</a></li>
+                            <li>
+                                <a href="logout.php" class="dropdown-item text-danger touch-feedback" href="#">
+                                    <i class="bi bi-box-arrow-right me-2"></i>Sair</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

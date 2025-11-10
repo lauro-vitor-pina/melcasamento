@@ -20,9 +20,7 @@ include '../../includes/sidebar.php';
                     <i class="bi bi-people me-1"></i> Convidados
                 </li>
                 <li class="breadcrumb-item active">
-                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>">
-                        Listar
-                    </a>
+                    Listar
                 </li>
             </ol>
         </nav>

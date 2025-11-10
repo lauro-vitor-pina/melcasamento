@@ -14,7 +14,6 @@ define('URL_CONVIDADO_LISTAR', '/admin/convidados/listar/listar-convidados.html.
                 <i class="bi bi-heart-fill me-2"></i>
                 Menu
             </h5>
-            <small class="text-white-50"><?php echo date('d/m H:i'); ?></small>
         </div>
         <button type="button" class="btn-close btn-close-white touch-feedback" data-bs-dismiss="offcanvas"></button>
     </div>
@@ -60,7 +59,7 @@ define('URL_CONVIDADO_LISTAR', '/admin/convidados/listar/listar-convidados.html.
 
         <!-- Logout -->
         <div class="mt-4 p-3">
-            <a href="../logout.php" class="btn btn-outline-warning btn-sm w-100 touch-feedback">
+            <a href="/admin/logout.php" class="btn btn-outline-warning btn-sm w-100 touch-feedback">
                 <i class="bi bi-box-arrow-right me-2"></i>
                 Sair do App
             </a>
