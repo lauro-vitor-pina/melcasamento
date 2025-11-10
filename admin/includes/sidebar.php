@@ -2,23 +2,9 @@
 <?php
 
 
-$host = $_SERVER['SERVER_NAME'] ?? throw new Exception('Cannot determine server environment');
+define('URL_ADMIN', '/admin/');
 
-
-$local_environments = [
-    'localhost',
-    '127.0.01'
-];
-
-
-$prefixo = '';
-
-if (in_array($host, $local_environments)) {
-   $prefixo = '/melcasamento';
-}
-
-define('URL_ADMIN', $prefixo. '/admin/');
-define('URL_CONVIDADO_LISTAR', $prefixo . '/admin/convidados/listar/listar-convidados.html.php');
+define('URL_CONVIDADO_LISTAR', '/admin/convidados/listar/listar-convidados.html.php');
 
 ?>
 <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMobile">
