@@ -3,16 +3,33 @@
 $page_title = 'Admin';
 include(__DIR__ . '/includes/header.php');
 include(__DIR__ . '/includes/sidebar.php');
+include(__DIR__ . '/../src/repositorio/convidado/convidado_repositorio_indicadores.php');
+include(__DIR__ . '/../src/repositorio/repositorio_conexao.php');   
+
+$dbc = null;
+$total_convidados = 0;
+$total_confirmados = 0;
+$total_nao_confirmados = 0;
+$total_mensagem_nao_enviada = 0;
+
+try {
+    $dbc = reposito_obter_conexao();
+    $indicadores_result = convidado_repositorio_indicadores($dbc);
+    $total_convidados = $indicadores_result['total'];
+    $total_confirmados = $indicadores_result['confirmados'];
+    $total_nao_confirmados = $indicadores_result['nao_confirmados'];
+    $total_mensagem_nao_enviada = $indicadores_result['mensagem_nao_enviada'];
+} catch (Exception $e) {
+    echo '<div class="alert alert-danger" role="alert">
+            Erro ao obter indicadores: ' . htmlspecialchars($e->getMessage()) . '
+          </div>';
+    exit;
+} finally {
+    repositorio_fechar_conexao($dbc);
+}
+
 ?>
 
-
-<?php
-// Dados de exemplo
-$total_convidados = 150;
-$total_confirmados = 120;
-$total_presentes = 45;
-$nao_confirmados = 30;
-?>
 
 <!-- Conteúdo Principal -->
 <main>
@@ -62,20 +79,20 @@ $nao_confirmados = 30;
                 </div>
             </div>
 
-            <div class="card stat-card touch-feedback bg-warning text-dark">
+            <div class="card stat-card touch-feedback bg-danger text-white">
                 <div class="card-body p-3 text-center">
-                    <h3 class="mb-1"><?php echo $total_presentes; ?></h3>
-                    <small>Presentes</small>
+                    <h3 class="mb-1"><?php echo $total_nao_confirmados; ?></h3>
+                    <small>Não Confirmados</small>
                     <div class="mt-2">
-                        <i class="bi bi-gift-fill" style="font-size: 1.5rem;"></i>
+                        <i class="bi bi-x-circle-fill me-1" style="font-size: 1.5rem;"></i>
                     </div>
                 </div>
             </div>
 
-            <div class="card stat-card touch-feedback bg-info text-white">
+            <div class="card stat-card touch-feedback bg-warning text-white">
                 <div class="card-body p-3 text-center">
-                    <h3 class="mb-1"><?php echo $nao_confirmados; ?></h3>
-                    <small>Pendentes</small>
+                    <h3 class="mb-1"><?php echo $total_mensagem_nao_enviada; ?></h3>
+                    <small>Mensagem não enviada</small>
                     <div class="mt-2">
                         <i class="bi bi-clock-fill" style="font-size: 1.5rem;"></i>
                     </div>
@@ -176,16 +193,5 @@ $nao_confirmados = 30;
 
     </div>
 </main>
-
-<!-- Botão Flutuante -->
-<button class="fab touch-feedback" type="button" data-bs-toggle="dropdown">
-    <i class="bi bi-plus"></i>
-</button>
-
-<ul class="dropdown-menu dropdown-menu-end" style="margin-bottom: 80px;">
-    <li><a class="dropdown-item touch-feedback" href="convidados/"><i class="bi bi-person-plus me-2"></i>Novo Convidado</a></li>
-    <li><a class="dropdown-item touch-feedback" href="presentes/"><i class="bi bi-gift me-2"></i>Novo Presente</a></li>
-    <li><a class="dropdown-item touch-feedback" href="#"><i class="bi bi-envelope me-2"></i>Nova Mensagem</a></li>
-</ul>
 
 <?php include(__DIR__ . '/includes/footer.php'); ?>
