@@ -101,7 +101,7 @@ $nao_confirmados = 30;
                     </div>
 
                     <div class="col-6">
-                        <a href="presentes/registrar.php" class="btn btn-outline-warning btn-mobile touch-feedback w-100">
+                        <a href="presentes/registrar/registrar-presente.html.php" class="btn btn-outline-warning btn-mobile touch-feedback w-100">
                             <i class="bi bi-gift me-2"></i>
                             Novo Presente
                         </a>
@@ -113,7 +113,7 @@ $nao_confirmados = 30;
                         </a>
                     </div>
                     <div class="col-6">
-                        <a href="presentes/" class="btn btn-outline-info btn-mobile touch-feedback w-100">
+                        <a href="presentes/listar/listar-presentes.html.php" class="btn btn-outline-info btn-mobile touch-feedback w-100">
                             <i class="bi bi-gift me-2"></i>
                             Listar presentes
                         </a>

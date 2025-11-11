@@ -16,3 +16,9 @@ CREATE TABLE presente (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
+
+ALTER TABLE presente 
+ADD dt_desativacao DATETIME NULL; 
+
+ALTER TABLE presente 
+ADD tx_usuario_desativacao VARCHAR(255) NULL;

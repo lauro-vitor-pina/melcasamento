@@ -1,0 +1,52 @@
+/* Estilos específicos para listagem de presentes */
+.presente-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #e9ecef;
+}
+
+.presente-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.presente-foto-container {
+    text-align: center;
+}
+
+.presente-foto {
+    max-height: 120px;
+    width: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.presente-sem-foto {
+    height: 120px;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+}
+
+/* Badges de status */
+.badge {
+    font-size: 0.75em;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .presente-card {
+        margin-bottom: 1rem;
+    }
+    
+    .presente-foto {
+        max-height: 100px;
+    }
+}
+
+/* Melhorias para touch */
+.touch-feedback {
+    cursor: pointer;
+}
+
+.touch-feedback:active {
+    opacity: 0.7;
+}
