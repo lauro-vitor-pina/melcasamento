@@ -1,6 +1,6 @@
 <?php
 
-//ok
+//src/repositorio/convidado/convidado_repositorio_inserir.php
 function convidado_repositorio_inserir(
     $dbc,
     $tx_usuario_registro,

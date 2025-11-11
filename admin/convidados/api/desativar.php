@@ -1,5 +1,5 @@
 <?php
-// api/convidados/desativar.php
+// admin/api/convidados/desativar.php
 require_once(__DIR__ . '/../../../src/repositorio/repositorio_conexao.php');
 require_once(__DIR__ . '/../../../src/repositorio/convidado/convidado_repositorio_desativar.php');
 require_once(__DIR__. '/../../../src/services/autorizacao/autorizacao_service.php');

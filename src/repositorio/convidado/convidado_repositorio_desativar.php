@@ -1,5 +1,5 @@
 <?php
-
+//src/repositorio/convidado/convidado_repositorio_desativar.php
 function convidado_repositorio_desativar($dbc, $codigo_convidado, $usuario_desativacao)
 {
     $codigo_convidado = mysqli_real_escape_string($dbc, $codigo_convidado);

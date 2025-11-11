@@ -1,6 +1,6 @@
 <?php 
 
-//ok
+//src/repositorio/convidado/convidado_repositorio_editar.php
 function convidado_repositorio_editar(
     $dbc,
     $codigo_convidado,

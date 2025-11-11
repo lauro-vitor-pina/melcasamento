@@ -1,6 +1,6 @@
 <?php
 
-//ok funcionando
+//src/repositorio/convidado/convidado_repositorio_obter_todos.php
 function convidado_repositorio_obter_todos(
     $dbc,
     $bl_somente_mensagem_nao_enviada,

@@ -1,4 +1,5 @@
 <?php
+// admin/convidados/api/obter_todos.php
 require_once(__DIR__ . '/../../../src/repositorio/repositorio_conexao.php');
 require_once(__DIR__ . '/../../../src/repositorio/convidado/convidado_repositorio_obter_todos.php');
 

@@ -1,6 +1,6 @@
 <?php
 
-//ok
+//src/repositorio/convidado/convidado_repositorio_obter_por_codigo.php
 function convidado_repositorio_obter_por_codigo($dbc, $codigo_convidado)
 {
     $codigo_convidado = mysqli_real_escape_string($dbc, $codigo_convidado);
