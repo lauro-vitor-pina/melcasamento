@@ -72,11 +72,9 @@
                         this.show('Enviando dados...');
 
                         // Se o form não for interceptado pelo JS, o loading será removido na próxima página
-                        setTimeout(() => {
-                            if (this.loadingElement.classList.contains('show')) {
-                                this.hide();
-                            }
-                        }, 3000);
+                        if (this.loadingElement.classList.contains('show')) {
+                            this.hide();
+                        }
                     });
 
                     // Interceptar mudanças em selects/inputs que disparam submit automático

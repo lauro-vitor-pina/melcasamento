@@ -101,7 +101,7 @@ function autorizacao_service_redirecionar_para_login($parametros = '') {
 }
 
 /**
- * Obtém informações do usuário logado (sem redirecionar)
+ * Obtém informações do usuário logado, caso contrário redireciona para login
  */
 function autorizacao_service_obter_usuario_logado() {
     if (autorizacao_service_esta_logado() && !autorizacao_service_sessao_expirada()) {
@@ -109,8 +109,10 @@ function autorizacao_service_obter_usuario_logado() {
             'usuario' => $_COOKIE['usuario_logado'],
             'nome' => $_COOKIE['usuario_nome']
         ];
+    } else {
+        autorizacao_service_redirecionar_para_login();
+        return null;
     }
-    return null;
 }
 
 /**
