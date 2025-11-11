@@ -3,18 +3,22 @@
 $page_title = 'Admin';
 include(__DIR__ . '/includes/header.php');
 include(__DIR__ . '/includes/sidebar.php');
+include(__DIR__ . '/../src/repositorio/repositorio_conexao.php');
 include(__DIR__ . '/../src/repositorio/convidado/convidado_repositorio_indicadores.php');
-include(__DIR__ . '/../src/repositorio/repositorio_conexao.php');   
+include(__DIR__ . '/../src/repositorio/log_convidado/log_convidado_repositorio_obter_todos.php');
 
 $dbc = null;
 $total_convidados = 0;
 $total_confirmados = 0;
 $total_nao_confirmados = 0;
 $total_mensagem_nao_enviada = 0;
+$logs_convidado_result = null;
 
 try {
     $dbc = reposito_obter_conexao();
     $indicadores_result = convidado_repositorio_indicadores($dbc);
+    $logs_convidado_result = log_convidado_repositorio_obter_todos($dbc, 1, 5, null);
+
     $total_convidados = $indicadores_result['total'];
     $total_confirmados = $indicadores_result['confirmados'];
     $total_nao_confirmados = $indicadores_result['nao_confirmados'];
@@ -149,48 +153,39 @@ try {
             </div>
             <div class="card-body p-0">
                 <div class="list-group list-group-flush">
-                    <div class="list-group-item touch-feedback">
-                        <div class="d-flex w-100 justify-content-between align-items-start">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-person-plus text-success me-3" style="font-size: 1.2rem;"></i>
-                                <div>
-                                    <small class="fw-bold d-block">Novo convidado</small>
-                                    <small class="text-muted">João Silva</small>
-                                </div>
-                            </div>
-                            <small class="text-muted">5min</small>
+                    <?php if ($logs_convidado_result ==  null || sizeof($logs_convidado_result['rows']) == 0):  ?>
+                        <div class="list-group-item text-muted small">
+                            Nenhuma atividade registrada ainda.
                         </div>
-                    </div>
+                    <?php else: ?>
 
-                    <div class="list-group-item touch-feedback">
-                        <div class="d-flex w-100 justify-content-between align-items-start">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-check-circle text-primary me-3" style="font-size: 1.2rem;"></i>
-                                <div>
-                                    <small class="fw-bold d-block">Confirmação</small>
-                                    <small class="text-muted">Maria Santos</small>
-                                </div>
-                            </div>
-                            <small class="text-muted">15min</small>
-                        </div>
-                    </div>
+                        <?php foreach ($logs_convidado_result['rows'] as $log_item): ?>
 
-                    <div class="list-group-item touch-feedback">
-                        <div class="d-flex w-100 justify-content-between align-items-start">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-gift text-warning me-3" style="font-size: 1.2rem;"></i>
-                                <div>
-                                    <small class="fw-bold d-block">Presente reservado</small>
-                                    <small class="text-muted">Jogo de Panelas</small>
+                            <div class="list-group-item touch-feedback">
+                                <div class="d-flex w-100 justify-content-between align-items-start">
+                                    <div class="d-flex align-items-center">
+                                        <i class=""></i>
+                                        <div>
+                                            <small class="fw-bold d-block">
+                                                <?php echo $log_item['tx_acao'] . ' - ' . $log_item['tx_pagina']; ?>
+                                            </small>
+                                            <small class="text-muted">
+                                                <?php echo $log_item['tx_nome_convidado']; ?>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">
+                                        <?= (new DateTime($log_item['dt_registro']))->format('d/m/Y H:i:s') ?>
+                                    </small>
                                 </div>
                             </div>
-                            <small class="text-muted">1h</small>
-                        </div>
-                    </div>
+
+                        <?php endforeach; ?>
+
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
-
     </div>
 </main>
 

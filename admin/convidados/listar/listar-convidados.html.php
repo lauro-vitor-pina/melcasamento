@@ -213,6 +213,6 @@ include '../../includes/sidebar.php';
 </main>
 
 <!-- Incluir JavaScript do Componente -->
-<script src="listar-convidados.js"></script>
+<script src="listar-convidados.js?v=<?= rand(1,100); ?>"></script>
 
 <?php include '../../includes/footer.php'; ?>

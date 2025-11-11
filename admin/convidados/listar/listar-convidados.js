@@ -122,6 +122,11 @@ function renderConvidadoCard(convidado) {
                                     <i class="bi bi-pencil me-2"></i>Editar
                                 </a>
                             </li>
+                            <li>
+                                <a class="dropdown-item touch-feedback"  href="../logs/logs-convidado.html.php?cd=${convidado.codigo_convidado}">
+                                    <i class="bi bi-journal-text me-2"></i>Ver Logs
+                                </a>
+                            </li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <a class="dropdown-item text-danger touch-feedback" 
