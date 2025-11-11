@@ -1,4 +1,4 @@
-// registrar-convidados.js
+// admin/convidados/registrar/registrar-convidado.js
 
 //#region VARIÁVEIS GLOBAIS
 let modoEdicao = false;

@@ -1,4 +1,5 @@
 <?php
+// admin/convidados/registrar/registrar-convidados.html.php
 $page_title = 'Registrar Convidado';
 include '../../includes/header.php';
 include '../../includes/sidebar.php';

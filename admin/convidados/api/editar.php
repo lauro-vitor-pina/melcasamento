@@ -1,5 +1,5 @@
 <?php
-// api/convidados/editar.php
+// admin/convidados/api/inserir.php
 require_once(__DIR__ . '/../../../src/repositorio/repositorio_conexao.php');
 require_once(__DIR__ . '/../../../src/repositorio/convidado/convidado_repositorio_editar.php');
 require_once(__DIR__. '/../../../src/services/autorizacao/autorizacao_service.php');
