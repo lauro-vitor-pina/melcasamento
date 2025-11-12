@@ -35,9 +35,14 @@ function renderizarStatusMensagemEnviada(convidado) {
 }
 
 function redenderizarStatusVisualizado(convidado) {
+
     const bl_visualizado = convidado.bl_visualizado;
     let status = '';
     let cor = '';
+
+    if (convidado.bl_mensagem_enviada === '0') {
+        return '';
+    }
 
     if (bl_visualizado === '1') {
         status = 'Visualizado';
@@ -99,7 +104,7 @@ function renderConvidadoCard(convidado) {
 
     const qtdPessoas = convidado.nu_qtd_pessoas || 1;
     const textoPessoas = qtdPessoas === 1 ? 'pessoa' : 'pessoas';
-    
+
     const dataRegistro = formatarData(convidado.dt_registro);
 
     return `
@@ -203,7 +208,7 @@ function initConvidadosController() {
 function vincularEventosConvidados() {
     const filtrosForm = document.getElementById('filtrosForm');
     if (filtrosForm) {
-        filtrosForm.addEventListener('submit', function(e) {
+        filtrosForm.addEventListener('submit', function (e) {
             e.preventDefault();
             aplicarFiltrosConvidados();
         });
@@ -221,7 +226,7 @@ function vincularEventosConvidados() {
 
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
-        searchInput.addEventListener('input', function(e) {
+        searchInput.addEventListener('input', function (e) {
             toggleBotaoLimparBuscaConvidados(e.target.value);
         });
     }
@@ -243,7 +248,7 @@ async function aplicarFiltrosConvidados() {
 
 async function carregarDadosConvidados(pagina, append) {
     if (estadoConvidados.carregando) return;
-    
+
     estadoConvidados.carregando = true;
     estadoConvidados.pagina = pagina;
 
@@ -253,7 +258,7 @@ async function carregarDadosConvidados(pagina, append) {
         const params = obterParametrosFiltrosConvidados();
         params.append('page', pagina);
         params.append('limit', 12);
-        
+
         const response = await fetch('/admin/convidados/api/obter_todos.php?' + params.toString());
         const data = await response.json();
 
@@ -275,35 +280,35 @@ async function carregarDadosConvidados(pagina, append) {
 function obterParametrosFiltrosConvidados() {
     const formData = new FormData(document.getElementById('filtrosForm'));
     const params = new URLSearchParams();
-    
+
     const mapeamentoCampos = {
         'msg_nao_enviada': 'msg_nao_enviada',
-        'nao_confirmado': 'nao_confirmado', 
+        'nao_confirmado': 'nao_confirmado',
         'nao_respondido': 'nao_respondido',
         'nao_visualizado': 'nao_visualizado',
         'q': 'q'
     };
-    
+
     for (let [key, value] of formData.entries()) {
         const paramName = mapeamentoCampos[key] || key;
         if (value) {
             params.append(paramName, value);
         }
     }
-    
+
     return params;
 }
 
 function processarRespostaConvidados(data, append) {
     estadoConvidados.temMaisResultados = data.data.has_next_page;
     estadoConvidados.totalRegistros = data.data.nu_count;
-    
+
     // Renderizar HTML no cliente usando as funções de renderização
     const html = renderConvidadosGrid(data.data.rows);
-    
+
     if (!append) {
         mostrarConteudoPrincipalConvidados();
-        
+
         if (data.data.rows.length > 0) {
             document.getElementById('convidados-container').classList.remove('d-none');
             document.getElementById('convidados-grid').innerHTML = html;
@@ -316,7 +321,7 @@ function processarRespostaConvidados(data, append) {
 
     atualizarBotaoCarregarMaisConvidados();
     atualizarTotalConvidadosConvidados();
-    
+
     // Inicializar tooltips do Bootstrap
     if (typeof bootstrap !== 'undefined') {
         const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -460,7 +465,7 @@ function clearSearchGlobal() {
 }
 
 // Inicializar quando DOM estiver pronto
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initConvidadosController();
 
     // Expor funções globais
