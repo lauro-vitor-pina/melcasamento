@@ -36,45 +36,7 @@ function convidado_repositorio_obter_todos(
 }
 
 
-function _convidado_repositorio_obter_todos_filtrar(
-    $dbc,
-    $bl_somente_mensagem_nao_enviada,
-    $bl_somente_nao_confirmado,
-    $bl_somente_nao_respondido,
-    $bl_somente_nao_visualizado,
-    $tx_consulta
-) {
-    $tx_filtro = '';
 
-    if ($bl_somente_mensagem_nao_enviada) {
-        $tx_filtro .= 'AND c.bl_mensagem_enviada = 0 ';
-    }
-
-    if ($bl_somente_nao_confirmado) {
-        $tx_filtro .= 'AND c.bl_mensagem_enviada = 1 AND c.bl_confirmacao = 0 ';
-    }
-
-    if ($bl_somente_nao_respondido) {
-        $tx_filtro .= 'AND c.bl_mensagem_enviada = 1 AND c.bl_confirmacao IS NULL ';
-    }
-
-    if ($bl_somente_nao_visualizado) {
-        $tx_filtro .= 'AND c.bl_mensagem_enviada = 1
-            AND NOT EXISTS (
-            SELECT 1 FROM log_convidado lc 
-            WHERE lc.codigo_convidado = c.codigo_convidado
-        ) ';
-    }
-
-    if ($tx_consulta !== null && trim($tx_consulta) !== '') {
-
-        $tx_consulta_escaped = mysqli_real_escape_string($dbc, trim($tx_consulta));
-
-        $tx_filtro .= "AND (c.tx_nome_convidado LIKE '%$tx_consulta_escaped%' OR c.tx_telefone_convidado LIKE '%$tx_consulta_escaped%') ";
-    }
-
-    return $tx_filtro;
-}
 
 function _convidado_repositorio_obter_todos_count($dbc, $tx_filtro)
 {
@@ -138,3 +100,77 @@ function _convidado_repositorio_obter_todos_rows($dbc, $tx_filtro, $nu_page_numb
     return $rows;
 }
 
+//region #filtros
+
+function _convidado_repositorio_obter_todos_filtrar(
+    $dbc,
+    $bl_somente_mensagem_nao_enviada,
+    $bl_somente_nao_confirmado,
+    $bl_somente_nao_respondido,
+    $bl_somente_nao_visualizado,
+    $tx_consulta
+) {
+    $tx_filtro = '';
+
+    if ($bl_somente_mensagem_nao_enviada) {
+        $tx_filtro .= _convidado_repositorio_obter_filtro_mensagem_nao_enviada();
+    }
+
+    if ($bl_somente_nao_confirmado) {
+        $tx_filtro .=  _convidado_repositorio_obter_filtro_nao_confirmados();
+    }
+
+    if ($bl_somente_nao_respondido) {
+        $tx_filtro .= _convidado_repositorio_obter_filtro_nao_respondido();
+    }
+
+    if ($bl_somente_nao_visualizado) {
+        $tx_filtro .= _convidado_repositorio_obter_filtro_nao_visualizado();
+    }   
+
+    if ($tx_consulta !== null && trim($tx_consulta) !== '') {
+
+        $tx_consulta_escaped = mysqli_real_escape_string($dbc, trim($tx_consulta));
+
+        $tx_filtro .= "AND (c.tx_nome_convidado LIKE '%$tx_consulta_escaped%' OR c.tx_telefone_convidado LIKE '%$tx_consulta_escaped%') ";
+    }
+
+    return $tx_filtro;
+}
+
+function _convidado_repositorio_obter_filtro_mensagem_nao_enviada(): string
+{
+    return 'AND c.bl_mensagem_enviada = 0 
+            AND c.bl_confirmacao IS NULL ';
+}
+
+function _convidado_repositorio_obter_filtro_confirmados(): string
+{
+    return 'AND c.bl_mensagem_enviada = 1 AND c.bl_confirmacao = 1 ';
+}
+
+function _convidado_repositorio_obter_filtro_nao_confirmados(): string
+{
+    return 'AND c.bl_mensagem_enviada = 1 AND c.bl_confirmacao = 0 ';
+}
+
+function _convidado_repositorio_obter_filtro_nao_visualizado(): string
+{
+    return 'AND c.bl_confirmacao IS NULL 
+            AND c.bl_mensagem_enviada = 1
+            AND NOT EXISTS (
+                SELECT 1 FROM log_convidado lc 
+                WHERE lc.codigo_convidado = c.codigo_convidado
+            ) ';
+}
+
+function _convidado_repositorio_obter_filtro_nao_respondido(): string
+{
+    return 'AND c.bl_confirmacao IS NULL 
+            AND c.bl_mensagem_enviada = 1 
+            AND EXISTS(SELECT 1
+                       FROM log_convidado lc 
+          	           WHERE lc.codigo_convidado = c.codigo_convidado) ';
+}
+
+//#endregion
