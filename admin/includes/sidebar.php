@@ -37,7 +37,7 @@ define('URL_CONVIDADO_LISTAR', '/admin/convidados/listar/listar-convidados.html.
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link touch-feedback <?php echo strpos($_SERVER['REQUEST_URI'], 'presentes') !== false ? 'active' : ''; ?>" href="presentes/">
+                <a href="/admin/presentes/listar/listar-presentes.html.php" class="nav-link touch-feedback <?php echo strpos($_SERVER['REQUEST_URI'], 'presentes') !== false ? 'active' : ''; ?>" ">
                     <i class="bi bi-gift"></i>
                     Presentes
                     <span class="badge bg-warning float-end mt-1">45</span>
