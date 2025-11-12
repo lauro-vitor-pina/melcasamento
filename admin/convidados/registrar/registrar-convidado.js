@@ -62,15 +62,44 @@ function aplicarMascaraTelefone(e) {
 }
 
 function validarFormulario() {
+    document.querySelectorAll('.invalid-feedback').forEach(msg => msg.textContent = '');
+    
     const form = document.getElementById('formConvidado');
-    const nomeInput = document.getElementById('tx_nome_convidado');
 
-    if (!nomeInput.value.trim()) {
-        nomeInput.classList.add('is-invalid');
+    const tx_nome_convidado = document.querySelector('#tx_nome_convidado');
+    const tx_nome_convidado_msg_erro = document.querySelector('#tx_nome_convidado_msg_erro');
+
+    const tx_telefone = document.querySelector('#tx_telefone_convidado');
+    const tx_telefone_convidado_msg_erro = document.querySelector('#tx_telefone_convidado_msg_erro');
+
+    let isValid = true;
+
+    if (!tx_nome_convidado.value.trim()) {
+        tx_nome_convidado_msg_erro.textContent = 'Por favor, informe o nome do convidado.';
+        tx_nome_convidado.classList.add('is-invalid');
+        isValid = false;
+    }
+
+    const tx_telefone_value = tx_telefone.value.replace(/\D/g, '').trim();
+
+    if (!tx_telefone_value) {
+        tx_telefone_convidado_msg_erro.textContent = 'Por favor, informe o telefone do convidado.';
+        tx_telefone.classList.add('is-invalid');
+        isValid = false;
+    }
+
+    if (tx_telefone_value.length !== 11) {
+        tx_telefone_convidado_msg_erro.textContent = 'Digite um telefone válido.';
+        tx_telefone.classList.add('is-invalid');
+        isValid = false;
+    }
+
+    if (!isValid) {
         return false;
     }
 
     form.classList.add('was-validated');
+
     return form.checkValidity();
 }
 

@@ -46,7 +46,7 @@ include '../../includes/sidebar.php';
                             <div class="mb-3">
                                 <label for="tx_nome_convidado" class="form-label">Nome do Convidado *</label>
                                 <input type="text" class="form-control" id="tx_nome_convidado" name="tx_nome_convidado" required>
-                                <div class="invalid-feedback">Por favor, informe o nome do convidado.</div>
+                                <span id="tx_nome_convidado_msg_erro" class="invalid-feedback"></span>
                             </div>
 
                             <!-- Quantidade de Pessoas -->
@@ -67,6 +67,7 @@ include '../../includes/sidebar.php';
                             <div class="mb-3">
                                 <label for="tx_telefone_convidado" class="form-label">Telefone</label>
                                 <input type="tel" class="form-control" id="tx_telefone_convidado" name="tx_telefone_convidado" placeholder="(11) 99999-9999">
+                                <span id="tx_telefone_convidado_msg_erro" class="invalid-feedback"></span>
                             </div>
 
                             <!-- Mensagem Enviada (apenas edição) -->
