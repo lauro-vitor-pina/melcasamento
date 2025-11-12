@@ -302,9 +302,8 @@ async function salvarConvidado() {
 
     try {
         const formData = obterDadosFormulario();
-        const endpoint = modoEdicao ? '/admin/convidados/api/editar.php' : '/admin/convidados/api/inserir.php';
 
-        const response = await fetch(endpoint, {
+        const response = await fetch('/admin/convidados/api/registrar.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

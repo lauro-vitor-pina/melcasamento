@@ -121,4 +121,4 @@ include '../../includes/sidebar.php';
 <?php include '../../includes/footer.php'; ?>
 
 <!-- Script específico da página -->
-<script src="registrar-convidado.js"></script>
+<script src="registrar-convidado.js?v=<?= rand(1, 100); ?>"></script>

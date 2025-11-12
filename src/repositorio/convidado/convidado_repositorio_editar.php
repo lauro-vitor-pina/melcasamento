@@ -1,21 +1,30 @@
-<?php 
+<?php
 
 //src/repositorio/convidado/convidado_repositorio_editar.php
 function convidado_repositorio_editar(
     $dbc,
-    $codigo_convidado,
     $tx_usuario_atualizacao,
     $tx_nome_convidado,
     $tx_telefone_convidado,
     $nu_qtd_pessoas,
-    $bl_mensagem_enviada
+    $bl_mensagem_enviada,
+    $bl_confirmado,
+    $codigo_convidado,
 ) {
     $codigo_convidado = mysqli_real_escape_string($dbc, $codigo_convidado);
     $tx_usuario_atualizacao = mysqli_real_escape_string($dbc, $tx_usuario_atualizacao);
     $tx_nome_convidado = mysqli_real_escape_string($dbc, $tx_nome_convidado);
     $tx_telefone_convidado = mysqli_real_escape_string($dbc, $tx_telefone_convidado);
     $nu_qtd_pessoas = intval($nu_qtd_pessoas);
-    $bl_mensagem_enviada = $bl_mensagem_enviada ? 1 : 0; 
+    $bl_mensagem_enviada = $bl_mensagem_enviada ? 1 : 0;
+
+    $bl_confirmado_sql = '';
+
+    if ($bl_confirmado != null) {
+        $bl_confirmado = $bl_confirmado ? 1 : 0;
+        $bl_confirmado_sql = ", bl_confirmado = $bl_confirmado "; 
+    }
+
 
     $query = "UPDATE convidado
                SET dt_atualizacao = NOW(),
@@ -24,6 +33,7 @@ function convidado_repositorio_editar(
                    tx_telefone_convidado = '$tx_telefone_convidado',
                    bl_mensagem_enviada = $bl_mensagem_enviada,
                    nu_qtd_pessoas = $nu_qtd_pessoas
+                   $bl_confirmado_sql
               WHERE codigo_convidado = '$codigo_convidado'";
 
     $result = mysqli_query($dbc, $query);
@@ -34,5 +44,3 @@ function convidado_repositorio_editar(
 
     return $result;
 }
-
-?>
