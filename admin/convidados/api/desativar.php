@@ -1,46 +1,31 @@
 <?php
 // admin/api/convidados/desativar.php
-require_once(__DIR__ . '/../../../src/repositorio/repositorio_conexao.php');
-require_once(__DIR__ . '/../../../src/repositorio/convidado/convidado_repositorio_desativar.php');
-require_once(__DIR__. '/../../../src/services/autorizacao/autorizacao_service.php');
+require_once(__DIR__ . '/../../../src/services/convidado/convidado_service_desativar.php');
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: PUT, POST');
 
 try {
-    $usuario_logado = autorizacao_service_obter_usuario_logado();
 
-    // Ler dados do POST
     $input = json_decode(file_get_contents('php://input'), true);
     
     if (!$input) {
         throw new Exception("Dados inválidos");
     }
 
-    // Validar campos obrigatórios
-    if (empty($input['codigo_convidado'])) {
-        throw new Exception("Código do convidado e usuário são obrigatórios");
-    }
+    $result = convidado_service_desativar($input['codigo_convidado']);
 
-    $dbc = reposito_obter_conexao();
-    
-    $resultado = convidado_repositorio_desativar(
-        $dbc,
-        $input['codigo_convidado'],
-        $usuario_logado['nome']
-    );
-    
-    repositorio_fechar_conexao($dbc);
-    
     $resposta = [
         'success' => true,
         'message' => 'Convidado desativado com sucesso',
-        'data' => $resultado
+        'data' => $result
     ];
 
 } catch (Exception $e) {
+    
     http_response_code(500);
+
     $resposta = [
         'success' => false,
         'error' => $e->getMessage()

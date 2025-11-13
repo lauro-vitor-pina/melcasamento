@@ -7,7 +7,8 @@ function convidado_repositorio_desativar($dbc, $codigo_convidado, $usuario_desat
 
     $query = "UPDATE convidado 
               SET dt_desativacao = NOW(), 
-                  tx_usuario_desativacao = '$usuario_desativacao'
+                  tx_usuario_desativacao = '$usuario_desativacao',
+                  bl_confirmacao = NULL
               WHERE codigo_convidado = '$codigo_convidado'";
 
     $result = mysqli_query($dbc, $query);
