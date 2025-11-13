@@ -13,12 +13,13 @@ try {
         throw new Exception("Dados inválidos");
     }
 
+
     $result = convidado_service_registrar(
         $input['tx_nome_convidado'] ?? '', 
         $input['tx_telefone_convidado'] ?? '',
         $input['nu_qtd_pessoas'] ?? 1, 
         $input['bl_mensagem_enviada'] ?? null,
-        $input['bl_confirmado'] ?? null,
+        $input['bl_confirmacao'] ?? null,
         $input['codigo_convidado'] ?? null
     );
 

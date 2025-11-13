@@ -7,7 +7,13 @@ require_once(__DIR__ . '/../../repositorio/convidado/convidado_repositorio_exist
 require_once(__DIR__ . '/../../repositorio/convidado/convidado_repositorio_existe_telefone.php');
 
 
-function convidado_service_registrar($tx_nome_convidado,$tx_telefone_convidado, $nu_qtd_pessoas, $bl_mensagem_enviada, $bl_confirmado,$codigo_convidado): bool {
+function convidado_service_registrar(
+    $tx_nome_convidado,
+    $tx_telefone_convidado, 
+    $nu_qtd_pessoas, 
+    $bl_mensagem_enviada,
+    $bl_confirmacao, 
+    $codigo_convidado): bool {
 
     $dbc = null;
 
@@ -46,7 +52,7 @@ function convidado_service_registrar($tx_nome_convidado,$tx_telefone_convidado, 
                 $tx_telefone_convidado,
                 $nu_qtd_pessoas,
                 $bl_mensagem_enviada,
-                $bl_confirmado,
+                $bl_confirmacao,
                 $codigo_convidado
             );
         }

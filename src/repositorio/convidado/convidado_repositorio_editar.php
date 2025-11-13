@@ -8,7 +8,7 @@ function convidado_repositorio_editar(
     $tx_telefone_convidado,
     $nu_qtd_pessoas,
     $bl_mensagem_enviada,
-    $bl_confirmado,
+    $bl_confirmacao,
     $codigo_convidado,
 ) {
     $codigo_convidado = mysqli_real_escape_string($dbc, $codigo_convidado);
@@ -18,12 +18,13 @@ function convidado_repositorio_editar(
     $nu_qtd_pessoas = intval($nu_qtd_pessoas);
     $bl_mensagem_enviada = $bl_mensagem_enviada ? 1 : 0;
 
-    $bl_confirmado_sql = '';
+    $bl_confirmacao_sql = '';
 
-    if ($bl_confirmado != null) {
-        $bl_confirmado = $bl_confirmado ? 1 : 0;
-        $bl_confirmado_sql = ", bl_confirmado = $bl_confirmado "; 
-    }
+    if ($bl_confirmacao === 'null' || $bl_confirmacao === null)
+        $bl_confirmacao_sql = 'NULL';
+    else
+        $bl_confirmacao_sql = $bl_confirmacao;
+
 
 
     $query = "UPDATE convidado
@@ -32,8 +33,8 @@ function convidado_repositorio_editar(
                    tx_nome_convidado = '$tx_nome_convidado',
                    tx_telefone_convidado = '$tx_telefone_convidado',
                    bl_mensagem_enviada = $bl_mensagem_enviada,
-                   nu_qtd_pessoas = $nu_qtd_pessoas
-                   $bl_confirmado_sql
+                   nu_qtd_pessoas = $nu_qtd_pessoas,
+                   bl_confirmacao = $bl_confirmacao_sql 
               WHERE codigo_convidado = '$codigo_convidado'";
 
     $result = mysqli_query($dbc, $query);

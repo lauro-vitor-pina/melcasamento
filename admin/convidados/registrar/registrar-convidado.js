@@ -5,6 +5,7 @@ let modoEdicao = false;
 let codigoConvidado = null;
 //#endregion
 
+
 //#region INICIALIZAÇÃO
 function initConvidadoForm() {
     obterParametroUrl();
@@ -24,7 +25,6 @@ function obterParametroUrl() {
         codigoConvidado = cd;
         document.getElementById('codigo_convidado').value = cd;
         document.getElementById('btnText').textContent = 'Atualizar Convidado';
-        document.getElementById('campo-mensagem-enviada').style.display = 'block';
     }
 }
 
@@ -50,6 +50,8 @@ function vincularEventosForm() {
 //#endregion
 
 //#region FUNÇÕES DE FORMULÁRIO
+
+
 function aplicarMascaraTelefone(e) {
     let value = e.target.value.replace(/\D/g, '');
 
@@ -63,7 +65,7 @@ function aplicarMascaraTelefone(e) {
 
 function validarFormulario() {
     document.querySelectorAll('.invalid-feedback').forEach(msg => msg.textContent = '');
-    
+
     const form = document.getElementById('formConvidado');
 
     const tx_nome_convidado = document.querySelector('#tx_nome_convidado');
@@ -103,34 +105,12 @@ function validarFormulario() {
     return form.checkValidity();
 }
 
-function obterDadosFormulario() {
-    const form = document.getElementById('formConvidado');
-    const formData = new FormData(form);
-    const dados = {};
-
-    for (let [key, value] of formData.entries()) {
-        if (key === 'nu_qtd_pessoas') {
-            dados[key] = parseInt(value);
-        } else if (key === 'bl_mensagem_enviada') {
-            dados[key] = value === 'on';
-        } else {
-            dados[key] = value;
-        }
-    }
-
-    return dados;
-}
-
 function preencherFormulario(convidado) {
     document.getElementById('tx_nome_convidado').value = convidado.tx_nome_convidado || '';
     document.getElementById('tx_telefone_convidado').value = convidado.tx_telefone_convidado || '';
     document.getElementById('nu_qtd_pessoas').value = convidado.nu_qtd_pessoas || 2;
-
-    if (convidado.bl_mensagem_enviada === '1') {
-        document.getElementById('bl_mensagem_enviada').checked = true;
-    } else {
-        document.getElementById('bl_mensagem_enviada').checked = false;
-    }
+    document.querySelector('#bl_mensagem_enviada').checked = convidado.bl_mensagem_enviada === '1';
+    document.querySelector('#bl_confirmacao').value = convidado.bl_confirmacao;
 }
 
 
@@ -282,7 +262,7 @@ async function carregarDadosConvidado() {
 
         if (data.success) {
             preencherFormulario(data.data);
-            configurarBotoesWhatsApp(); // Configurar botões WhatsApp (só na edição)
+            configurarBotoesWhatsApp(); 
         } else {
             throw new Error(data.error || 'Erro ao carregar dados do convidado');
         }
@@ -294,6 +274,7 @@ async function carregarDadosConvidado() {
 }
 
 async function salvarConvidado() {
+
     if (!validarFormulario()) {
         return;
     }
@@ -301,27 +282,38 @@ async function salvarConvidado() {
     mostrarLoading();
 
     try {
-        const formData = obterDadosFormulario();
+
+        const requestBody = {
+            codigo_convidado: codigoConvidado,
+            tx_nome_convidado: document.querySelector('#tx_nome_convidado').value,
+            nu_qtd_pessoas: parseInt(document.querySelector('#nu_qtd_pessoas').value),
+            tx_telefone_convidado: document.querySelector('#tx_telefone_convidado').value,
+            bl_confirmacao: document.querySelector('#bl_confirmacao')?.value,
+            bl_mensagem_enviada: document.querySelector('#bl_mensagem_enviada')?.checked,
+        };
 
         const response = await fetch('/admin/convidados/api/registrar.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(requestBody)
         });
 
         const data = await response.json();
 
         if (data.success) {
             mostrarSucesso(modoEdicao ? 'Convidado atualizado com sucesso!' : 'Convidado cadastrado com sucesso!');
-            setTimeout(() => {
-                window.location.href = '../listar/listar-convidados.html.php';
-            }, 1500);
+
+            if (!modoEdicao) {
+                setTimeout(() => { window.location.href = '../listar/listar-convidados.html.php'; }, 1500);
+            }
+
         } else {
             throw new Error(data.error || 'Erro ao salvar convidado');
         }
     } catch (error) {
+        console.log(error);
         mostrarErro('Erro ao salvar: ' + error.message);
     } finally {
         esconderLoading();
