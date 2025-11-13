@@ -1,5 +1,6 @@
 <?php
 // admin/convidados/registrar/registrar-convidados.html.php
+require_once(__DIR__ . '/../../../src/configuracao/parametros.php');
 $page_title = 'Registrar Convidado';
 include '../../includes/header.php';
 include '../../includes/sidebar.php';
@@ -131,4 +132,12 @@ $modo_edicao = isset($_GET['cd']);
 
 <?php include '../../includes/footer.php'; ?>
 
+<script>
+    const CHA_PANELA_LOCAL = '<?php echo CHA_PANELA_LOCAL;  ?>';
+    const CHA_PANELA_DATA = '<?php echo CHA_PANELA_DATA; ?>';
+    const CHA_PANELA_DIA = '<?php echo CHA_PANELA_DIA; ?>';
+    const CHA_PANELA_HORARIO = '<?php echo CHA_PANELA_HORARIO; ?>';
+    const CHA_PANELA_DATA_CONFIRMACAO = '<?php echo CHA_PANELA_DATA_CONFIRMACAO ?>';
+    const LINK = '<?php echo $_SERVER['HTTP_HOST'] . '/confirmacao.php?cd=' . $_GET['cd']  ?>';
+</script>
 <script src="registrar-convidado.js?v=<?= rand(1, 100); ?>"></script>

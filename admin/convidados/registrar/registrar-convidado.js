@@ -169,21 +169,17 @@ function gerarMensagemPersonalizada() {
     const nomeInput = document.getElementById('tx_nome_convidado');
     const nome = nomeInput.value || 'Convidado';
 
-    // Mensagem personalizada - você pode customizar esta mensagem
-    const mensagem = `Olá ${nome}! Tudo bem? 🌸
+    const mensagem = 
+`Olá  *${nome}*! 😊
+Estamos felizes em te convidar para o nosso *chá de panela*, vai ser uma noite com muito bolo, brigadeiro e claro, nossa companhia!
 
-Gostaríamos de confirmar sua presença no nosso casamento! 
+🗓️ *Data*: ${CHA_PANELA_DATA} - ${CHA_PANELA_DIA} 
+⏰ *Horário*: ${CHA_PANELA_HORARIO} horas
+📍 *Local*: ${CHA_PANELA_LOCAL} 
 
-💒 *Data:* [INSERIR DATA]
-📍 *Local:* [INSERIR LOCAL]
-⏰ *Horário:* [INSERIR HORÁRIO]
+Para Garantir que tudo fique perfeito, confirme sua presença até ${CHA_PANELA_DATA_CONFIRMACAO} através deste link:
 
-Por favor, nos confirme sua presença até [INSERIR DATA LIMITE].
-
-Aguardamos você para celebrar conosco este momento especial! 💕
-
-Com carinho,
-[SEUS NOMES]`;
+${LINK}`;
 
     return mensagem;
 }
