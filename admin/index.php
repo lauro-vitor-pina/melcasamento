@@ -166,11 +166,13 @@ try {
                                     <div class="d-flex align-items-center">
                                         <i class=""></i>
                                         <div>
-                                            <small class="fw-bold d-block">
-                                                <?php echo $log_item['tx_acao'] . ' - ' . $log_item['tx_pagina']; ?>
+                                            <small class="fw-bold d-block mb-2">
+                                                <?php echo $log_item['tx_nome_convidado'];  ?>
+
                                             </small>
                                             <small class="text-muted">
-                                                <?php echo $log_item['tx_nome_convidado']; ?>
+                                                <b>Ação:</b> <?= $log_item['tx_acao'] ?> &nbsp;
+                                                <b>Página:</b> <?=  $log_item['tx_pagina'] ?>
                                             </small>
                                         </div>
                                     </div>
