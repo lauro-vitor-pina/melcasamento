@@ -177,7 +177,7 @@ Estamos felizes em te convidar para o nosso *chá de panela*, vai ser uma noite 
 ⏰ *Horário*: ${CHA_PANELA_HORARIO} horas
 📍 *Local*: ${CHA_PANELA_LOCAL} 
 
-Para Garantir que tudo fique perfeito, confirme sua presença até ${CHA_PANELA_DATA_CONFIRMACAO} através deste link:
+Para garantir que tudo fique perfeito, confirme sua presença até ${CHA_PANELA_DATA_CONFIRMACAO} através deste link:
 
 ${LINK}`;
 
