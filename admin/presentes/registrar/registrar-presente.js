@@ -154,7 +154,7 @@ async function salvarPresente() {
             mostrarSucesso(modoEdicao ? 'Presente atualizado com sucesso!' : 'Presente cadastrado com sucesso!');
             setTimeout(() => {
                 window.location.href = '../listar/listar-presentes.html.php';
-            }, 1500);
+            }, 1000);
         } else {
             throw new Error(data.error || 'Erro ao salvar presente');
         }

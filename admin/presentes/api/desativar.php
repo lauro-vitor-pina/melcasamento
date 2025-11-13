@@ -1,52 +1,34 @@
 <?php
-// /admin/presentes/api/desativar.php
-
-require_once(__DIR__ . '/../../../src/repositorio/repositorio_conexao.php');
-require_once(__DIR__ . '/../../../src/repositorio/presente/presente_repositorio_desativar.php');
-require_once(__DIR__ . '/../../../src/services/autorizacao/autorizacao_service.php');
+require_once(__DIR__ . '/../../../src/services/presente/presente_service_desativar.php');
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: PUT, POST');
 
 try {
-    $usuario_logado = autorizacao_service_obter_usuario_logado();
 
-    // Ler dados do POST
     $input = json_decode(file_get_contents('php://input'), true);
     
     if (!$input) {
         throw new Exception("Dados inválidos");
     }
 
-    // Validar campos obrigatórios
-    if (empty($input['codigo_presente'])) {
-        throw new Exception("Código do presente é obrigatório");
-    }
-
-    $dbc = reposito_obter_conexao();
+    $result = presente_service_desativar($input['codigo_presente']);
     
-    $resultado = presente_repositorio_desativar(
-        $dbc,
-        $input['codigo_presente'],
-        $usuario_logado['nome']
-    );
-    
-    repositorio_fechar_conexao($dbc);
-    
-    $resposta = [
+    $response = [
         'success' => true,
         'message' => 'Presente desativado com sucesso',
-        'data' => $resultado
+        'data' => $result
     ];
 
 } catch (Exception $e) {
     http_response_code(500);
-    $resposta = [
+
+    $response = [
         'success' => false,
         'error' => $e->getMessage()
     ];
 }
 
-echo json_encode($resposta);
+echo json_encode($response);
 ?>

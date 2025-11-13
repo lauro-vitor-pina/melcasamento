@@ -41,7 +41,7 @@ function renderizarFotoPresente(presente) {
     if (temFoto) {
         const caminhoFoto = `/admin/presentes/api/../../../_uploads/presentes/${presente.tx_foto_presente}`;
         return `
-            <div class="presente-foto-container mb-3">
+            <div class="presente-foto-container mb-3 text-center">
                 <img src="${caminhoFoto}" 
                      alt="${escapeHtml(presente.tx_nome_presente)}"
                      class="presente-foto img-fluid rounded"
