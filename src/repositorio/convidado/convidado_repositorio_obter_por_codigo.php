@@ -5,7 +5,7 @@ function convidado_repositorio_obter_por_codigo($dbc, $codigo_convidado)
 {
     $codigo_convidado = mysqli_real_escape_string($dbc, $codigo_convidado);
 
-    $query = "SELECT * FROM convidado WHERE codigo_convidado = '$codigo_convidado'";
+    $query = "SELECT * FROM convidado WHERE codigo_convidado = '$codigo_convidado' AND dt_desativacao IS NULL";
 
     $result = mysqli_query($dbc, $query);
 
