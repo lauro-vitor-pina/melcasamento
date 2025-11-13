@@ -29,7 +29,7 @@ include '../../includes/sidebar.php';
             <div>
                 <h4 class="mb-1">
                     <i class="bi bi-gift me-2 text-primary"></i>
-                    Meus Presentes
+                    Presentes
                 </h4>
                 <small class="text-muted" id="total-presentes">
                     Carregando...

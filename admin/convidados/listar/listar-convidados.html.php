@@ -30,7 +30,7 @@ include '../../includes/sidebar.php';
             <div>
                 <h4 class="mb-1">
                     <i class="bi bi-people me-2 text-primary"></i>
-                    Meus Convidados
+                    Convidados
                 </h4>
                 <small class="text-muted" id="total-convidados">
                     Carregando...
@@ -213,6 +213,6 @@ include '../../includes/sidebar.php';
 </main>
 
 <!-- Incluir JavaScript do Componente -->
-<script src="listar-convidados.js?v=<?= rand(1,100); ?>"></script>
+<script src="listar-convidados.js?v=<?= rand(1, 100); ?>"></script>
 
 <?php include '../../includes/footer.php'; ?>

@@ -35,7 +35,8 @@ function presente_repositorio_obter_todos(
     if ($tx_consulta !== null && trim($tx_consulta) !== '') {
         $tx_consulta_escaped = mysqli_real_escape_string($dbc, trim($tx_consulta));
         $conditions[] = "(p.tx_nome_presente LIKE '%$tx_consulta_escaped%' OR 
-                         p.tx_descricao_presente LIKE '%$tx_consulta_escaped%')";
+                          p.tx_descricao_presente LIKE '%$tx_consulta_escaped%' OR
+                          c.tx_nome_convidado LIKE '%$tx_consulta_escaped%')";
     }
 
     // Adiciona condições à query base

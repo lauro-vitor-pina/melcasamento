@@ -26,7 +26,7 @@ include '../../includes/sidebar.php';
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h4 class="mb-0">
                 <i class="bi bi-<?php echo isset($_GET['cd']) ? 'pencil' : 'person-plus'; ?> me-2"></i>
-                <?php echo isset($_GET['cd']) ? 'Editar Convidado' : 'Cadastrar Novo Convidado'; ?>
+                <?php echo isset($_GET['cd']) ? 'Editar Convidado' : 'Novo Convidado'; ?>
             </h4>
             <a href="../listar/listar-convidados.html.php" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left me-2"></i>Voltar

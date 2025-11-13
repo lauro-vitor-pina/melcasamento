@@ -22,40 +22,26 @@ define('URL_CONVIDADO_LISTAR', '/admin/convidados/listar/listar-convidados.html.
         <!-- Menu Principal -->
         <ul class="nav flex-column mt-3">
             <li class="nav-item">
-                <a  href="<?php echo URL_ADMIN; ?>"
+                <a href="<?php echo URL_ADMIN; ?>"
                     class="nav-link touch-feedback <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
                     <i class="bi bi-house-door"></i>
                     Início
                 </a>
             </li>
             <li class="nav-item">
-                <a  href="<?php echo URL_CONVIDADO_LISTAR; ?>"
-                    class="nav-link touch-feedback <?php echo strpos($_SERVER['REQUEST_URI'], 'convidados') !== false ? 'active' : ''; ?>" >
+                <a href="<?php echo URL_CONVIDADO_LISTAR; ?>"
+                    class="nav-link touch-feedback <?php echo strpos($_SERVER['REQUEST_URI'], 'convidados') !== false ? 'active' : ''; ?>">
                     <i class="bi bi-people"></i>
                     Convidados
-                    <span class="badge bg-primary float-end mt-1">150</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="/admin/presentes/listar/listar-presentes.html.php" class="nav-link touch-feedback <?php echo strpos($_SERVER['REQUEST_URI'], 'presentes') !== false ? 'active' : ''; ?>" ">
-                    <i class="bi bi-gift"></i>
+                    <i class=" bi bi-gift"></i>
                     Presentes
-                    <span class="badge bg-warning float-end mt-1">45</span>
                 </a>
             </li>
         </ul>
-
-        <!-- Status Rápido -->
-        <div class="mt-4 p-3 mx-3 bg-dark bg-opacity-25 rounded">
-            <small class="text-white-50 d-block">Status Rápido</small>
-            <div class="d-flex justify-content-between align-items-center mt-2">
-                <div class="d-flex align-items-center">
-                    <div class="bg-success rounded-circle me-2" style="width: 8px; height: 8px;"></div>
-                    <small class="text-white">120 confirmados</small>
-                </div>
-                <small class="text-white-50">80%</small>
-            </div>
-        </div>
 
         <!-- Logout -->
         <div class="mt-4 p-3">
